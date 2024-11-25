@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: java-server-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: java-server
+  template:
+    metadata:
+      labels:
+        app: java-server
+    spec:
+      containers:
+      - name: java-server
+        image: romeo23/java-server:latest
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: log-volume
+          mountPath: /app/logs
+        resources:
+          requests:
+            ephemeral-storage: "500Mi"  # Adjust as needed
+          limits:
+            ephemeral-storage: "1Gi"  # Adjust as needed
+      volumes:
+      - name: log-volume
+        hostPath:
+          path: /var/logs/server # Adjust this path as needed
+
