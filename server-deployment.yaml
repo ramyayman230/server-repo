@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: java-server-deployment
+  namespace: singlebranch  # Specify the namespace here
 spec:
   replicas: 1
   selector:
@@ -29,4 +30,3 @@ spec:
       - name: log-volume
         hostPath:
           path: /var/logs/server # Adjust this path as needed
-
